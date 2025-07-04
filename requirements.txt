@@ -1,3 +1,5 @@
-ortools
+altair
+pandas
 streamlit
 plotly
+
