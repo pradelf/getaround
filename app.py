@@ -22,9 +22,9 @@ st.markdown("""
 """)
 
 ### LOAD DATA
-DATA_PRICING = ('Data/get_around_pricing_project.csv')
+DATA_PRICING = ('/app/Data/get_around_pricing_project.csv')
 
-DATA_ANALYSIS = ('Data/get_around_delay_analysis.csv')
+DATA_ANALYSIS = ('/app/Data/get_around_delay_analysis.csv')
 
 # this lets the cache activated : usage d'un décorateur python pour ajouter des fonctionnalité 
 # : st.cache_data et st.cache_resource qui remplace st.cache qui va devenir obsolète.
