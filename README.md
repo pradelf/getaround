@@ -1,6 +1,6 @@
 # getaround
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white))
+![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white)
 ![MLflow](https://img.shields.io/badge/MLflow-Tracking-red?logo=mlflow)
 ![FastAPI](https://img.shields.io/badge/FastAPI-API-green?logo=fastapi)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-orange?logo=streamlit)
@@ -10,7 +10,7 @@
 
 ___
 
-![snap](https://lever-client-logos.s3.amazonaws.com/2bd4cdf9-37f2-497f-9096-c2793296a75f-1568844229943.png)
+![snap](https://fr.getaround.com/packs/images/app/assets/images/shared/getaround-logo.245e368962541c3c.svg)
 
 ___
 
