@@ -8,6 +8,7 @@
 ![Live](https://img.shields.io/badge/Status-Live%20Demo-success)
 ![CCDS](https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter)
 
+
 ![snap](https://lever-client-logos.s3.amazonaws.com/2bd4cdf9-37f2-497f-9096-c2793296a75f-1568844229943.png)
 
 Projet d'évaluation des impacts de retard sur les locations de getaround.
