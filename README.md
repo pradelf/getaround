@@ -1,6 +1,6 @@
 # getaround
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white))
+![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white)
 ![MLflow](https://img.shields.io/badge/MLflow-Tracking-red?logo=mlflow)
 ![FastAPI](https://img.shields.io/badge/FastAPI-API-green?logo=fastapi)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-orange?logo=streamlit)
