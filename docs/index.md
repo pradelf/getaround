@@ -7,7 +7,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Containerized-blue?logo=docker)
 ![Live](https://img.shields.io/badge/Status-Live%20Demo-success)
 ![CCDS](https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter)
-
+|docs|
 ___
 
 ![snap](https://fr.getaround.com/packs/images/app/assets/images/shared/getaround-logo.245e368962541c3c.svg)
