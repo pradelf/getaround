@@ -247,7 +247,7 @@ Les données du projet sont rangées dans le repertoire data/raw :
 
 ### Point d'entrée
 
-Le point d'entrée pour l'analyse du projet est le notebook : [01-Getaround_analysis_FR.ipynb](./notebooks/01-Getaround_analysis_FR.ipynb).
-Le point d'entrée pour l'entraînement des modèles est le script : [train_model.py](./getaround/modeling/train.py).
-Le point d'entrée pour les prédictions des modèles est le script : [predict_model.py](./getaround/modeling/predict.py).
-Le point d'entrée pour l'API webservice des modèles est le script : [getaround_api.py](./getaround/api/getaround_api.py)
+Le point d'entrée pour l'analyse du projet est le notebook : [01-Getaround_analysis_FR.ipynb](./notebooks/01-Getaround_analysis_FR.ipynb).<br/>
+Le point d'entrée pour l'entraînement des modèles est le script : [train_model.py](./getaround/modeling/train.py).<br/>
+Le point d'entrée pour les prédictions des modèles est le script : [predict_model.py](./getaround/modeling/predict.py).<br/>
+Le point d'entrée pour l'API webservice des modèles est le script : [getaround_api.py](./getaround/api/getaround_api.py).<br/>
