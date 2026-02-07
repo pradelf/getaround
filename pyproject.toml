@@ -6,7 +6,7 @@ build-backend = "flit_core.buildapi"
 name = "getaround"
 version = "0.0.1"
 description = "Projet d'\u00e9valuation des impacts de retard sur les locations de getaround."
-authors = [{ name = "Francis Pradel" }]
+authors = [{ name = "Francis Pradel", email = "francis.pradel@gmail.com" }]
 license = { file = "LICENSE" }
 readme = "README.md"
 classifiers = [
