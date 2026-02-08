@@ -179,6 +179,7 @@ Deux fichiers de données sont nécessaires :
 - [Pricing Optimization](https://full-stack-assets.s3.eu-west-3.amazonaws.com/Deployment/get_around_pricing_project.csv) 👈 Machine Learning
 
 Bon courage et bon code 👩‍💻
+___
 
 ## Organisation du projet
 
@@ -242,8 +243,11 @@ Le projet est inclus dans ce dépôt et il a la structure de fichier suivante :
 
 Les données du projet sont rangées dans le repertoire data/raw :
 
-- [data/raw/get_around_delay_analysis.xlsx](./data/raw/get_around_delay_analysis.xlsx) : Données pour l'analyse des retards
+- [data/raw/get_around_delay_analysis.xlsx](./data/raw/get_around_delay_analysis.xlsx) : Données pour l'analyse des retards au format excel
+- [data/raw/get_around_delay_analysis.csv](./data/raw/get_around_delay_analysis.csv) : Données pour l'analyse des retards au format csv
 - [data/raw/get_around_pricing_project.csv](./data/raw/get_around_pricing_project.csv) : Données pour l'optimisation des retards
+
+Comme les données sont de faible volume, je les ai placé dans le reprtoire data/raw du projet. Mais pour l'exercice, elles sont également rangées comme un dataset de Hugging Face dans un dépôt [Git Xet](https://huggingface.co/docs/hub/xet/index) : [getaround-dataset](https://huggingface.co/datasets/pradelf/getaround-dataset)
 
 ### Point d'entrée
 
