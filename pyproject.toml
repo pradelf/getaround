@@ -18,8 +18,10 @@ dependencies = [
     "jupyterlab",
     "loguru",
     "matplotlib",
+    "mlflow",
     "notebook",
     "numpy",
+    "openpyxl",
     "pandas",
     "pip",
     "pytest",
@@ -28,8 +30,9 @@ dependencies = [
     "scikit-learn",
     "tqdm",
     "typer",
+    "fpcia@git+https://github.com/pradelf/fpcia#egg=0.0.3",
 ]
-requires-python = "~=3.13.0"
+requires-python = "~=3.12.0"
 
 
 [tool.ruff]

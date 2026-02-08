@@ -2,4 +2,5 @@ altair
 pandas
 streamlit
 plotly
+git+https://github.com/pradelf/fpcia.git@0.0.3
 
