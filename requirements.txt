@@ -1,6 +1,9 @@
+boto3
 altair
 pandas
+mlflow==3.8.0
 streamlit
 plotly
+protobuf
 git+https://github.com/pradelf/fpcia.git@0.0.3
 

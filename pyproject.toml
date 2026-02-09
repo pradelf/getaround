@@ -14,6 +14,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
+    "boto3",
     "ipython",
     "jupyterlab",
     "loguru",
@@ -24,6 +25,7 @@ dependencies = [
     "openpyxl",
     "pandas",
     "pip",
+    "protobuf",
     "pytest",
     "python-dotenv",
     "ruff",
