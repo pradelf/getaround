@@ -252,6 +252,6 @@ Comme les données sont de faible volume, je les ai placé dans le reprtoire dat
 ### Point d'entrée
 
 Le point d'entrée pour l'analyse du projet est le notebook : [01-Getaround_analysis_FR.ipynb](./notebooks/01-Getaround_analysis_FR.ipynb).
-Le point d'entrée pour l'entraînement des modèles est le script : [train_model.py](./getaround/modeling/train.py).
+Le point d'entrée pour l'entraînement des modèles est le script : [03_Getaround_model_training.ipynb](./getaround/notebooks/03_Getaround_model_training.ipynb).
 Le point d'entrée pour les prédictions des modèles est le script : [predict_model.py](./getaround/modeling/predict.py).
 Le point d'entrée pour l'API webservice des modèles est le script : [getaround_api.py](./getaround/api/getaround_api.py)
