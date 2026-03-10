@@ -98,7 +98,7 @@ Commencez par construire un **dashboard** destiné à aider l’équipe Produit 
 
 En complément des analyses précédentes, l’équipe Data Science travaille sur un sujet d’**optimisation de la tarification**. Des données ont été collectées afin de proposer des prix optimaux aux propriétaires à l’aide de modèles de Machine Learning.
 
-Vous devez fournir au minimum **un endpoint** `/predict`. L’URL complète pourrait par exemple être : `https://your-url.com/predict`.
+Vous devez fournir au minimum **un endpoint** `/predict`. L’URL complète est : `https://pradelf-getaround-api.hf.space/predict`.
 
 Cet endpoint doit accepter des requêtes **POST** avec des données d’entrée au format JSON et retourner les prédictions correspondantes. On suppose que **les données d’entrée sont toujours correctement formatées** ; la gestion des erreurs est donc optionnelle.
 
@@ -106,8 +106,19 @@ Exemple d’entrée :
 
 ```
 {
-  "input": [[7.0, 0.27, 0.36, 20.7, 0.045, 45.0, 170.0, 1.001, 3.0, 0.45, 8.8],
-            [7.0, 0.27, 0.36, 20.7, 0.045, 45.0, 170.0, 1.001, 3.0, 0.45, 8.8]]
+  "model_key": "Peugeot",
+  "mileage": 10000,
+  "engine_power": 130,
+  "fuel": "petrol",
+  "paint_color": "black",
+  "car_type": "convertible",
+  "private_parking_available": true,
+  "has_gps": true,
+  "has_air_conditioning": true,
+  "automatic_car": true,
+  "has_getaround_connect": true,
+  "has_speed_regulator": true,
+  "winter_tires": true
 }
 ```
 
@@ -117,7 +128,8 @@ Exemple de réponse :
 
 ```
 {
-  "prediction": [6, 6]
+  "prediction": 145.66041029414708,
+  "detail": "Prédiction du tarif journalier (nul si aucun modèle)."
 }
 ```
 
@@ -125,32 +137,20 @@ Exemple de réponse :
 
 Vous devez fournir aux utilisateurs une **documentation** décrivant votre API.
 
-Cette documentation doit être accessible à l’URL `/docs` de votre site (par exemple : `https://your-url.com/docs`).
+Cette documentation est accessible à l’URL `/docs` de mon site sur hugging face <https://pradelf-getaround-api.hf.space/docs>.
 
-Cette documentation devra au minimum contenir :
+Cette documentation contient :
 
 - un titre de niveau h1 (le titre est libre) ;
 - une description de chaque endpoint disponible, précisant le nom de l’endpoint, la méthode HTTP, les entrées requises et les sorties attendues (des exemples peuvent être fournis).
 
-Vous êtes libre d’ajouter toute information pertinente et de styliser la page HTML comme vous le souhaitez.
-
 #### Mise en production en ligne
 
-Vous devez **héberger votre API en ligne**. Nous vous recommandons d’utiliser [Hugging Face](https://huggingface.co/spaces), qui est gratuit, mais vous pouvez choisir tout autre fournisseur d’hébergement.
-
-### Aides 🦮
-
-Pour vous aider à démarrer ce projet, voici quelques recommandations :
-
-- prenez le temps de bien comprendre les données ;
-- ne négligez pas la phase d’analyse de données, qui recèle de nombreux enseignements ;
-- l’analyse de données devrait prendre entre 2 et 5 heures ;
-- la partie Machine Learning devrait prendre entre 3 et 6 heures ;
-- l’utilisation d’outils de gestion du cycle de vie des modèles (comme `mlflow`) n’est pas obligatoire mais fortement recommandée.
+Le déploiement est **hébergé avec son API en ligne** chez [Hugging Face](https://huggingface.co/spaces),
 
 #### Partage du code
 
-Afin de permettre l’évaluation, n’oubliez pas de partager votre code dans un dépôt [GitHub](https://github.com/). Vous pouvez y inclure un fichier `README.md` décrivant brièvement le projet, la procédure d’installation locale et l’URL de la version en ligne.
+Pour permettre l’évaluation, le code est versionné dans un dépôt [GitHub](https://github.com/pradelf/getaround)avec ce fichier `README.md` décrivant brièvement le projet, la procédure d’installation locale et l’URL de la version en ligne.
 
 ### Livrables 📬
 
@@ -161,7 +161,25 @@ Pour valider ce projet, vous devrez fournir :
 - une **API documentée et accessible en ligne** (Hugging Face ou autre) contenant au moins **un endpoint `/predict`** conforme aux spécifications ci-dessus. Il doit être possible d’interroger l’endpoint `/predict` via `curl` :
 
 ```shell
-curl -i -H "Content-Type: application/json" -X POST -d '{"input": [[7.0, 0.27, 0.36, 20.7, 0.045, 45.0, 170.0, 1.001, 3.0, 0.45, 8.8]]}' http://your-url/predict
+curl -X 'POST' \
+  "https://pradelf-getaround-api.hf.space/predict" \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "model_key": "Peugeot",
+  "mileage": 10000,
+  "engine_power": 130,
+  "fuel": "petrol",
+  "paint_color": "black",
+  "car_type": "convertible",
+  "private_parking_available": true,
+  "has_gps": true,
+  "has_air_conditioning": true,
+  "automatic_car": true,
+  "has_getaround_connect": true,
+  "has_speed_regulator": true,
+  "winter_tires": true
+}'
 ```
 
 Ou en Python :
@@ -169,15 +187,28 @@ Ou en Python :
 ```python
 import requests
 
-response = requests.post("https://your-url/predict", json={
-    "input": [[7.0, 0.27, 0.36, 20.7, 0.045, 45.0, 170.0, 1.001, 3.0, 0.45, 8.8]]
+response = requests.post( "https://pradelf-getaround-api.hf.space/predict",
+  {
+  "model_key": "Peugeot",
+  "mileage": 10000,
+  "engine_power": 130,
+  "fuel": "petrol",
+  "paint_color": "black",
+  "car_type": "convertible",
+  "private_parking_available": true,
+  "has_gps": true,
+  "has_air_conditioning": true,
+  "automatic_car": true,
+  "has_getaround_connect": true,
+  "has_speed_regulator": true,
+  "winter_tires": true
 })
 print(response.json())
 ```
 
 ### Données
 
-Deux fichiers de données sont nécessaires :
+Pour les données, deux fichiers de données sont nécessaires et son placer dans le repertoire /data/raw:
 
 - [Delay Analysis](https://full-stack-assets.s3.eu-west-3.amazonaws.com/Deployment/get_around_delay_analysis.xlsx) 👈 Analyse de données
 - [Pricing Optimization](https://full-stack-assets.s3.eu-west-3.amazonaws.com/Deployment/get_around_pricing_project.csv) 👈 Machine Learning
@@ -222,23 +253,7 @@ Le projet est inclus dans ce dépôt et il a la structure de fichier suivante :
 │
 ├── setup.cfg          <- Fichier de configuration pour flake8
 │
-└── getaround          <- Code source utilisé dans ce projet
-    │
-    ├── __init__.py             <- Déclare getaround comme un module Python
-    │
-    ├── config.py               <- Stockage des variables utiles et de la configuration
-    │
-    ├── dataset.py              <- Scripts pour télécharger ou générer les données
-    │
-    ├── features.py             <- Code de construction des features pour la modélisation
-    │
-    ├── modeling
-    │   ├── __init__.py
-    │   ├── predict.py          <- Code pour exécuter l’inférence avec des modèles entraînés
-    │   └── train.py            <- Code d’entraînement des modèles
-    │
-    └── plots.py                <- Code pour créer des visualisations
-
+└── getaround          <- Code source utilisé dans ce projet pour la web app et l'api
 ```
 
 --------
