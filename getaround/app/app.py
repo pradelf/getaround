@@ -5,6 +5,10 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 import requests
+import logging
+
+logger = logging.getLogger(__name__)
+
 # ======================================================
 # 🌐 API Pricing HF
 # ======================================================
@@ -34,13 +38,15 @@ def call_pricing_api(featRentalFeatures: RentalFeatures):
     Appelle l'API FastAPI déployée sur Hugging Face.
     Retourne le prix prédit (float) ou None en cas d'erreur.
     """
-    payload = {"input": [featRentalFeatures.model_dump()]}
+    #payload = {"input": [featRentalFeatures.model_dump()]}
+    payload = featRentalFeatures.model_dump()
     try:
         resp = requests.post(API_URL, json=payload, timeout=10)
         resp.raise_for_status()
         data = resp.json()
-        if "prediction" in data and len(data["prediction"]) > 0:
-            return float(data["prediction"][0]), payload, data
+        logger.info(data)
+        if "prediction" in data:
+            return float(data["prediction"])
         else:
             st.error("Réponse API inattendue : clé 'prediction' absente.")
             return None, payload, data
@@ -49,6 +55,7 @@ def call_pricing_api(featRentalFeatures: RentalFeatures):
         return None, payload, None
 
 
+logger.info('Started')
 ### CONFIG
 st.set_page_config(page_title="Location Voiture", page_icon="💸", layout="wide")
 
@@ -146,7 +153,7 @@ with col1:
         y="delay_at_checkout_in_minutes",
     )
     fig.update_layout(bargap=0.2)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
 with col2:
     st.markdown("Seconde colonne")
@@ -161,15 +168,19 @@ with col2:
         )
         submit = st.form_submit_button("submit")
         if submit:
-            model_select = data_pricing[data_pricing["model_key"] == model]
-            power_select = data_pricing[data_pricing["engine_power"] == power]
+            
             car_select=RentalFeatures(model_key=model, engine_power=power)
             # avg_rental_price = data_pricing[model_select & power_select][
             #    "rental_price_per_day"
             # ].mean()
+            # model_select = data_pricing[data_pricing["model_key"] == model]
+            # power_select = data_pricing[data_pricing["engine_power"] == power]
+            logger.info(car_select)
             rental_price = call_pricing_api(
                 car_select
             )
             # avg_rental_price = 0.0
-            st.metric("Prix de location moyen (en $)", np.round(rental_price, 2))
+            logger.info("##############")
+            logger.info(rental_price)
+            st.metric(f"Prix de location moyen (en $) :",f"{float(rental_price):.2f}")
 # exemple de véhicule du site avec les données : https://fr.getaround.com/location-voiture/paris/citroen-c3-1608526

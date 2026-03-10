@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi import HTTPException
 from pydantic import BaseModel
 import mlflow.pyfunc
 import pandas as pd
@@ -27,16 +28,27 @@ BOOL_COLS = [
 
 description = """
 Bienvenue sur l'API de Getaround pour prédire le prix journalier de location d'une voiture en fonction de son année d'expérience!
+
 ## Point de terminaison d'introduction
+
 Pour tester le fonctionnement de l'API, vous pouvez utiliser le point de terminaison d'introduction suivant:
 * `/`: **GET** retourne la version de l'API et un message de bienvenue.
+
 ## Point de terminaison de ligne de vie
+
+
 Cette web fonction permet de vérifier que le serveur de l'API est opérationnel et de surveiller son statut.
 * `/health`: **GET** retourne juste OK pour valider que le serveur de l'API est en cours d'exécution sans problèmes.
+
+
 ## Machine Learning : Point de terminaison du prix de location
+
 Cette terminaison de l'API permet de prédire le prix journalier de location d'une voiture en fonction de ses caractéristiques..
+
 * `/predict` accepte une requête POST avec un JSON contenant un objet JSON donnant les caractéristiques d'une voiture 
 et retourne une prédiction du prix journalier de location de celle-ci.
+
+
 La documentation est ci-dessous 👇 pour chaque point de terminaison (endpoints). 
 """
 
@@ -71,6 +83,7 @@ app = FastAPI(
         "url": "https://promotion.francispradel.fr",
     },
     openapi_tags=tags_metadata,
+    swagger_ui_parameters={"syntaxHighlight": {"theme": "obsidian"}},
 )
 
 @app.on_event("startup")
@@ -93,13 +106,13 @@ class RentalFeatures(BaseModel):
     fuel: str
     paint_color: str
     car_type: str
-    private_parking_available: int
-    has_gps: int
-    has_air_conditioning: int
-    automatic_car: int
-    has_getaround_connect: int
-    has_speed_regulator: int
-    winter_tires: int
+    private_parking_available: bool
+    has_gps: bool
+    has_air_conditioning: bool
+    automatic_car: bool
+    has_getaround_connect: bool
+    has_speed_regulator: bool
+    winter_tires: bool
 
 
 @app.get("/", tags=["Introduction Endpoints"])
@@ -123,26 +136,10 @@ async def predict(predictionFeatures: RentalFeatures):
     """
     Prediction of car daily rental cost for a given properties of a car !
     """
-    # Read data
-    # pf = [
-    #     predictionFeatures.model_key or "Peugeot",   
-    #     predictionFeatures.mileage or 0,
-    #     predictionFeatures.engine_power or 0,
-    #     predictionFeatures.fuel or "petrol",
-    #     predictionFeatures.car_type or "sedan",
-    #     predictionFeatures.private_parking_available or 1,
-    #     predictionFeatures.has_gps or 0,
-    #     predictionFeatures.has_air_conditioning or 0,
-    #     predictionFeatures.automatic_car or 0,
-    #     predictionFeatures.has_getaround_connect or 0,
-    #     predictionFeatures.has_speed_regulator or 0,
-    #     predictionFeatures.winter_tires or 0,
-    # ]
     try:
-        car_caracteristic = pd.DataFrame([predictionFeatures.model_dump()])
-        #car_caracteristic = pd.DataFrame({"Car": pf})
-        # Log model from mlflow
-   
+        payload = predictionFeatures.model_dump()
+        car_characteristic = pd.DataFrame([payload])
+        # Log model from mlflow 
         BOOL_COLS = [
             "private_parking_available",
             "has_gps",
@@ -154,16 +151,22 @@ async def predict(predictionFeatures: RentalFeatures):
         ]
         # Conversion explicite des colonnes booléennes
         for col in BOOL_COLS:
-            car_caracteristic[col] = car_caracteristic[col].astype(bool)
-        # Prediction from previously loaded model as a PyFuncModel.
-        prediction = model.predict(car_caracteristic)
+            car_characteristic[col] = car_characteristic[col].astype(bool)
 
+        
+        logger.info("Payload reçu: %s", payload)
+        logger.info("dtypes:\n%s", car_characteristic.dtypes)
+
+        # Prediction from previously loaded model as a PyFuncModel.
+        prediction = model.predict(car_characteristic)
+        logger.info(f"Output  : {prediction}")  
         # Format response
         response = {
-            "prediction": prediction.tolist()[0],
+            "prediction":  float(prediction[0]),
             "detail": "Prédiction du tarif journalier (nul si aucun modèle : model.pkl).",
         }
         return response
     except Exception as e:
         logger.exception("Erreur dans /predict")
-        raise Exception(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e))
+

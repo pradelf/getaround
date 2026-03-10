@@ -64,6 +64,8 @@ Le check-in et le check-out peuvent être réalisés selon trois modalités dist
 - **Connect** : le conducteur ne rencontre pas le propriétaire et ouvre le véhicule à l’aide de son smartphone ;
 - **📝 Papier** : contrat papier (cas négligeable).
 
+Pour comprendre le business model de Get Around, un résumé de leur mode de fonctionnement est donner sur la page [ci-dessous.](./docs/Analysis-GetAround_Business_model.md)
+
 ### Projet 🚧
 
 Pour cette étude de cas, nous vous proposons de vous placer dans notre situation et de reproduire une analyse que nous avons menée en 2017 🔮🪄

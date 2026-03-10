@@ -1,23 +1,39 @@
-FROM python:3.9
+FROM python:3.12-slim
 
-ENV MLFLOW_EXPERIMENT_NAME=$MLFLOW_EXPERIMENT_NAME
-ENV MLFLOW_TRACKING_URI=$MLFLOW_TRACKING_URI
 ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
 ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-ENV BACKEND_STORE_URI=$BACKEND_STORE_URI
-ENV ARTIFACT_ROOT=$ARTIFACT_ROOT
 
+# use root account
+USER root
+
+#Install the gears
+RUN apt-get update -y
+RUN apt-get install nano unzip curl -y
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# create user account
 RUN useradd -m -u 1000 user
+# RUN useradd -ms /bin/bash user
+RUN mkdir /app 
+RUN chown -R user /app
+
+# use user account
 USER user
-ENV PATH="/home/user/.local/bin:$PATH"
+
+ENV HOME=/app\
+    PATH=/app/.local/bin:$PATH
 
 WORKDIR /app
 
-COPY --chown=user ./requirements.txt requirements.txt
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
+COPY ./requirements.txt requirements.txt
+RUN pip install --no-cache-dir --upgrade -r ./requirements.txt
+
 
 COPY --chown=user . /app
-EXPOSE 7860
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
+#CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
+EXPOSE $PORT
 
-#CMD ["bash","-lc","fastapi run app.py --host 0.0.0.0 --port ${PORT}"]
+CMD fastapi run app.py --port $PORT --reload

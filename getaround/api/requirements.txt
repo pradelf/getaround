@@ -8,11 +8,11 @@ scikit-learn==1.8.0
 scipy==1.17.0
 fastapi[standard]
 uvicorn[standard]
+gunicorn
 pydantic 
+python-multipart
 typing 
 pandas 
 openpyxl
-boto3 
-mlflow 
-python-multipart
-fsspec
+boto3
+
