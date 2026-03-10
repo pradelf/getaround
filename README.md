@@ -256,6 +256,8 @@ Comme les données sont de faible volume, je les ai placé dans le reprtoire dat
 ### Point d'entrée
 
 Le point d'entrée pour l'analyse du projet est le notebook : [01-Getaround_analysis_FR.ipynb](./notebooks/01-Getaround_analysis_FR.ipynb).
+Le point d'entrée pour l'EDA du projet est le notebook : [02_Getaround_eda.ipynb](./notebooks/02_Getaround_eda.ipynb).
 Le point d'entrée pour l'entraînement des modèles est le script : [03_Getaround_model_training.ipynb](./getaround/notebooks/03_Getaround_model_training.ipynb).
-Le point d'entrée pour les prédictions des modèles est le script : [predict_model.py](./getaround/modeling/predict.py).
-Le point d'entrée pour l'API webservice des modèles est le script : [getaround_api.py](./getaround/api/getaround_api.py)
+Le point d'entrée pour la prédiction des prix de location est le projet Docker dans le repertoire : [getaround/api](./getaround/api).
+La documentation de l'API est en ligne sur hugging face sous l'url : [https://pradelf-getaround-api.hf.space/docs](https://pradelf-getaround-api.hf.space/docs)
+Le point d'entrée pour l'Application wede calcul de prix est : [https://pradelf-getaround-web.hf.space](https://pradelf-getaround-web.hf.space)
