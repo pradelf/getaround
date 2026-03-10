@@ -1,6 +1,12 @@
 # getaround
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white)
+**Bloc 5 - Industrialisation d'un algorithme d'apprentissage automatique et automatisation des processus de décision.**
+
+Ce projet est à réaliser pour valider partiellement la certification Data Science - Fullstack : Certification RNCP35288 CDSD avec le bloc 5.
+
+Ce projet est également déposé sur github :  [https://github.com/pradelf/getaround](https://github.com/pradelf/getaround)
+___
+
 ![MLflow](https://img.shields.io/badge/MLflow-Tracking-red?logo=mlflow)
 ![FastAPI](https://img.shields.io/badge/FastAPI-API-green?logo=fastapi)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-orange?logo=streamlit)
@@ -11,8 +17,6 @@
 ___
 
 ![snap](https://fr.getaround.com/packs/images/app/assets/images/shared/getaround-logo.245e368962541c3c.svg)
-
-___
 
 - [getaround](#getaround)
   - [Description et contexte du projet](#description-et-contexte-du-projet)
