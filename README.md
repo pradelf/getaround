@@ -215,7 +215,6 @@ Pour les données, deux fichiers de données sont nécessaires et son placer dan
 - [Delay Analysis](https://full-stack-assets.s3.eu-west-3.amazonaws.com/Deployment/get_around_delay_analysis.xlsx) 👈 Analyse de données
 - [Pricing Optimization](https://full-stack-assets.s3.eu-west-3.amazonaws.com/Deployment/get_around_pricing_project.csv) 👈 Machine Learning
 
-Bon courage et bon code 👩‍💻
 ___
 
 ## Organisation du projet
@@ -224,9 +223,9 @@ ___
 
 Le projet est inclus dans ce dépôt et il a la structure de fichier suivante :
 
-```
+``` bash
 ├── LICENSE            <- Licence open source ici MIT
-├── Makefile           <- Makefile avec des commandes pratiques comme `make data` ou `make train`
+├── Makefile           <- Makefile avec des commandes pratiques comme 'make data' ou 'make train'
 ├── README.md          <- README principal du projet à destination des développeurs
 ├── data
 │   ├── external       <- Données provenant de sources tierces
@@ -239,8 +238,8 @@ Le projet est inclus dans ce dépôt et il a la structure de fichier suivante :
 ├── models             <- Modèles entraînés et sérialisés, prédictions des modèles ou résumés
 │
 ├── notebooks          <- Notebooks Jupyter. Convention de nommage : un numéro (pour l’ordre),
-│                         les initiales de l’auteur, et une courte description séparée par des `-`,
-│                         par exemple : `1.0-jqp-exploration-initiale-des-donnees`
+│                         les initiales de l’auteur, et une courte description séparée par des -,
+│                         par exemple : '10-jqp-exploration-initiale-des-donnees'
 │
 ├── pyproject.toml     <- Fichier de configuration du projet avec les métadonnées du package
 │                         getaround et la configuration d’outils comme black
@@ -251,12 +250,21 @@ Le projet est inclus dans ce dépôt et il a la structure de fichier suivante :
 │   └── figures        <- Graphiques et figures générés pour les rapports
 │
 ├── requirements.txt   <- Fichier des dépendances pour reproduire l’environnement d’analyse,
-│                         par exemple généré avec `pip freeze > requirements.txt`
+│                         par exemple généré avec pip freeze > requirements.txt
 │
 ├── setup.cfg          <- Fichier de configuration pour flake8
 │
-└── getaround          <- Code source utilisé dans ce projet pour la web app et l'api
+└── getaround          <- Code source utilisé dans ce projet pour la web app, l'api web et MLFlow sur Hugging Faces.
+
 ```
+
+Dans ce projet, les plateformes Github ainsi que. Hugging Face sont utilisées.
+Normalement, le mieux pour éviter la redondance de données serait d'archiver et versionner le code sur GitHub en ajoutant des submodules ou subtree pour relier le dépôt Git sur GitHub au 3 dépôts sur Hugging Face. Nous avons pris le partie de construire un space par application déployée sur Hugging Face. Ces spaces sont regrouppés au sein d'une [collection](https://huggingface.co/collections/pradelf/getaround) contenant les spaces :
+
+- [Web APP tableau de bord](https://huggingface.co/spaces/pradelf/getaround-web)
+-[Web serveur pour fournir les web fonctions et leur documentation](https://huggingface.co/spaces/pradelf/getaround-api)
+- et enfin [le déploiement de MLFlow pour tracer, archiver et versionner notre modèle d'IA sur les prixe de location.](https://huggingface.co/spaces/pradelf/getaround-mlflow)
+à laquelle nous avons ajouté le [dataset](https://huggingface.co/datasets/pradelf/getaround-dataset) de ce projet GetAround.
 
 --------
 
@@ -266,15 +274,162 @@ Les données du projet sont rangées dans le repertoire data/raw :
 
 - [data/raw/get_around_delay_analysis.xlsx](./data/raw/get_around_delay_analysis.xlsx) : Données pour l'analyse des retards au format excel
 - [data/raw/get_around_delay_analysis.csv](./data/raw/get_around_delay_analysis.csv) : Données pour l'analyse des retards au format csv
-- [data/raw/get_around_pricing_project.csv](./data/raw/get_around_pricing_project.csv) : Données pour l'optimisation des retards
+- [data/raw/get_around_pricing_project.csv](./data/raw/get_around_pricing_project.csv) : Données pour les price de location des véhicules.
 
-Comme les données sont de faible volume, je les ai placé dans le reprtoire data/raw du projet. Mais pour l'exercice, elles sont également rangées comme un dataset de Hugging Face dans un dépôt [Git Xet](https://huggingface.co/docs/hub/xet/index) : [getaround-dataset](https://huggingface.co/datasets/pradelf/getaround-dataset)
+Comme les données sont de faible volume, je les ai placé dans le repertoire `data/raw` du projet. Mais pour l'exercice, elles sont également rangées comme un dataset de Hugging Face dans un dépôt [Git Xet](https://huggingface.co/docs/hub/xet/index) : [getaround-dataset](https://huggingface.co/datasets/pradelf/getaround-dataset) qui permet de gérer par un autre moyen que `git lfs` des fichiers binaires ou volumineux.
 
-### Point d'entrée
+Concernant les données, il est notable que les deux datasets n'autorise aucune jointure directe. En effet, l'identifiant d'un véhicule dans le dataset de prix n'est pas relié à l'identifiant du véhicule dans le dataste d'analyse de retard. Ce point est très dommageable pour répondre à l'opportunité d'imposer ou non une durée incompressible entre la fin de location d'un véhicule et le début der sa location suivante. Plutôt que d'avoir des données directes et plutôt fiable, il va être necessaire d'effectuer des hypothèses plus ou moins forte pour établir le coût économique des retards de restitution de véhicule.
+
+L'hypothèse prise ici va se baser sur un prix moyen journalier de la location d'un véhicule. C'est une hypothèse simple et nous pourrions enrichir cette hypothèse en essayant de créer une correspondance entre les distributions statistiques de véhicule et celle des véhicules impliqués dans la location. Cette dernière action ne sera pas utilisé dans le présent projet pour des raisons de moyen impliqué dans ce projet.
+
+### Points d'entrée
+
+Dans cette section, vous trouvez les différents points d'entrée pour aborder le projet.
+
+#### Etude et analyse du projet
 
 Le point d'entrée pour l'analyse du projet est le notebook : [01-Getaround_analysis_FR.ipynb](./notebooks/01-Getaround_analysis_FR.ipynb).
 Le point d'entrée pour l'EDA du projet est le notebook : [02_Getaround_eda.ipynb](./notebooks/02_Getaround_eda.ipynb).
 Le point d'entrée pour l'entraînement des modèles est le script : [03_Getaround_model_training.ipynb](./getaround/notebooks/03_Getaround_model_training.ipynb).
 Le point d'entrée pour la prédiction des prix de location est le projet Docker dans le repertoire : [getaround/api](./getaround/api).
+
+#### Livrables du projet
+
+Nous donnons ici les produits ou service livré pour le projet. Comme évoqué le source de ces solutions sont archivé dans le repertoire [getaround/api](./getaround/api) pour l'api et [getaround/web](./getaround/web).
+Chacun de ces repertoires est déployé pour un projet (ou space) Hugging Face.
+
 La documentation de l'API est en ligne sur hugging face sous l'url : [https://pradelf-getaround-api.hf.space/docs](https://pradelf-getaround-api.hf.space/docs)
-Le point d'entrée pour l'Application wede calcul de prix est : [https://pradelf-getaround-web.hf.space](https://pradelf-getaround-web.hf.space)
+Le point d'entrée pour l'Application web de calcul de prix est : [https://pradelf-getaround-web.hf.space](https://pradelf-getaround-web.hf.space)
+
+## Conclusion par rapport à l'objectif
+
+Il nous est demandé de conseiller le manager sur l'opportunité de mettre en place un délai minimal entre deux locations qui limite les annulations tout en maximisant les revenus.
+
+Nous commençons par répondre à la question la plus concernant le périmètre.
+
+### faut-il activer cette fonctionnalité pour tous les véhicules ou uniquement pour les véhicules Connect ?
+
+Il est important de constater qu'il y a plus de véhicule avec la technologie mobile que connect (ajout d'un boitier dans le véhicule pour une location autonome).
+![alt text](./docs/media/connect_vs_mobile.png)
+
+Les chiffres font apparaître clairement une différence entre les technologies Connect et Mobile utilisées dans les véhicules en favorisant l'usage de la technologie connect.
+
+En effet, l'EDA faite sur Les retards sont très différents selon la technologie.
+
+| technologie | retard médian |
+|---|---|
+| Connect | -9 min |
+| Mobile | +14 min |
+
+| type | retard pour 75% des retards |
+|---|---|
+|Connect | 94 min|
+| Mobile | 142 min |
+
+Nous en déduisons que les véhicules équipés des boitiers "Connect" ont beaucoup moins de retard.
+
+Il serait donc interessant de mettre en place des délais minimaux en onction de la technologie équipant le véhicule.
+
+Nous passons maintenant à la question la plus impactante concernant le seuil de délai entre deux locations.
+
+### quelle doit être la durée minimale du délai entre deux locations ?
+
+Grâce aux données, il apparaît que sur les  21310 locations données dans le dataset de retard, on a :
+
+- 15,3 % des locations qui finissent annulées
+
+- 84,7 % qui finissent normalement voir même avec un rendu prématuré du véhicule.
+
+Le problème principal vient du retard de restitution de la location précédente.
+Quand le retard dépasse le temps disponible avant la location suivante :
+$$delay > gap\ between\ rentals$$
+➡ le locataire suivant ne peut pas récupérer la voiture
+➡ cela entraîne souvent annulation ou mauvaise expérience.
+Il est à noter qu'en étudiant le business model de Get Around (voir la page [Business Model](./docs/Analysis-GetAround_Business_model.md) faite à partir de la lecture du site de [Get Around](https://getaround.com))
+![alt text](image.png), le prix de la location journalière est différent suivant la durée de la location. Cette différence dépend du choix du propriétaire et donne une variabilité du prix conséquente comme on peut le voir sur le graphique ci-dessus.
+De plus la marque du véhicule comme son emplacement (non présent dans les données) peut influer le prix de location. A titre d'exemple, je donne le prix moyen de location journalière en € en fonction de la marque.
+
+|marque | Location journalière moyenne |
+|---| ---|
+| Citroën |  108.76 |
+| Peugeot |  104.92 |
+| PGO |  126.09 |
+| Renault |  120.61 |
+| Audi |  130.54 |
+| BMW |  117.43 |
+| Ford |  111.00 |
+| Mercedes |  121.36 |
+| Opel |  155.58 |
+| Porsche |  144.67 |
+| Volkswagen |  134.12 |
+| KIA Motors |  159.00 |
+| Alfa Romeo |  157.67 |
+| Ferrari |  150.52 |
+| Fiat |  93.00 |
+| Lamborghini |  157.50 |
+| Maserati |  188.67 |
+| Lexus |  193.00 |
+| Honda |  145.00 |
+| Mazda |  67.00 |
+| Mini |  204.00 |
+| Mitsubishi |  170.68 |
+| Nissan |  111.13 |
+| SEAT |  181.24 |
+| Subaru |  182.34 |
+| Suzuki |  223.88 |
+| Toyota |  149.79 |
+| Yamaha |  133.00 |
+
+Le prix moyen de location est quant à lui de : 121,21 €.
+Aussi nous restons sur l'usage du prix moyen de location journalière , 121,21 €, pour estimer les pertes économiques lièes à l'insertion d'un délai entre location.
+
+Sur cette base, l'analyse est faite dans le notebook [analyse des gains de revenu](./notebooks/02_Getaround_eda.ipynb#résultat)
+
+E résumé, on modélise le **conflit probable** par :
+
+conflit si : $$ delay > gap + D$$
+
+où :
+
+- `delay_at_checkout_in_minutes` = retard de restitution
+- `time_delta_with_previous_rental_in_min` = temps disponible entre deux locations
+- `D` = délai imposé entre location par la plateforme qui est le sujet de l'étude.
+
+Ainsi la revenu probable $R$ est relié à la probabilité de conflit $P_{conflit}$ entre deux locations:
+
+$ R(D) = P_{moyen} \times (1 - P_{conflit}(D)) $
+
+avec :
+
+$ P_{moyen} = prix journalier moyen ici de 121,21 €.
+
+$ P_{conflit}(D) $= probabilité qu'un retard dépasse le temps disponible plus le buffer (D).
+
+Il s'agit de l'hypothèse nécessaire pour estimer les données économiques pour la prise de décision.
+
+![Risque de conflit par rapport au délai minimum imposé](image-2.png)
+
+![Revenu par rapport au délai minimum imposé](image-3.png)
+
+Le point de bascule qui correspond au p^lateau de la dérivée des revenus se situe typiquement autour de **120 à 150 minutes** comme on peut le voir sur le graphique ci-dessous.
+![détermination du plateau pour un gain raisonnable](image-4.png)
+
+Cependant, le choix final appartient au manager.
+En différenciant entre les technologies, on retrouve un point de bascule vers un plateau de gain pour des délais similaires minimaux entre 100 minute et 120 minutes.
+![Dérivée des gains probables en fonction de la technologie et du délai minimal](image-5.png)
+
+La préconisation qui semble avoir le meilleur compromis global est donc de mettre un délai minimale entre deux locations successives de 120 minutes.
+
+### autres informations intéressantes
+
+Au passage des réponses aux questions suivantes sont apportés :
+
+- Quelle part des revenus des propriétaires serait potentiellement affectée par cette fonctionnalité ?
+
+- Combien de locations seraient impactées en fonction du seuil et du périmètre choisis ?
+
+- À quelle fréquence les conducteurs sont-ils en retard pour le check-in suivant ?
+
+- Quel est l’impact pour le conducteur suivant ?
+
+- Combien de situations problématiques seraient résolues selon le seuil et le périmètre retenus ?
