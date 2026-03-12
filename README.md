@@ -346,7 +346,7 @@ $$delay > gap\ between\ rentals$$
 ➡ le locataire suivant ne peut pas récupérer la voiture
 ➡ cela entraîne souvent annulation ou mauvaise expérience.
 Il est à noter qu'en étudiant le business model de Get Around (voir la page [Business Model](./docs/Analysis-GetAround_Business_model.md) faite à partir de la lecture du site de [Get Around](https://getaround.com))
-![alt text](image.png), le prix de la location journalière est différent suivant la durée de la location. Cette différence dépend du choix du propriétaire et donne une variabilité du prix conséquente comme on peut le voir sur le graphique ci-dessus.
+![alt text](./docs/media/image.png), le prix de la location journalière est différent suivant la durée de la location. Cette différence dépend du choix du propriétaire et donne une variabilité du prix conséquente comme on peut le voir sur le graphique ci-dessus.
 De plus la marque du véhicule comme son emplacement (non présent dans les données) peut influer le prix de location. A titre d'exemple, je donne le prix moyen de location journalière en € en fonction de la marque.
 
 |marque | Location journalière moyenne |
@@ -407,16 +407,16 @@ $ P_{conflit}(D) $= probabilité qu'un retard dépasse le temps disponible plus 
 
 Il s'agit de l'hypothèse nécessaire pour estimer les données économiques pour la prise de décision.
 
-![Risque de conflit par rapport au délai minimum imposé](image-2.png)
+![Risque de conflit par rapport au délai minimum imposé](./docs/media/image-2.png)
 
-![Revenu par rapport au délai minimum imposé](image-3.png)
+![Revenu par rapport au délai minimum imposé](./docs/media/image-3.png)
 
 Le point de bascule qui correspond au p^lateau de la dérivée des revenus se situe typiquement autour de **120 à 150 minutes** comme on peut le voir sur le graphique ci-dessous.
-![détermination du plateau pour un gain raisonnable](image-4.png)
+![détermination du plateau pour un gain raisonnable](./docs/media/image-4.png)
 
 Cependant, le choix final appartient au manager.
 En différenciant entre les technologies, on retrouve un point de bascule vers un plateau de gain pour des délais similaires minimaux entre 100 minute et 120 minutes.
-![Dérivée des gains probables en fonction de la technologie et du délai minimal](image-5.png)
+![Dérivée des gains probables en fonction de la technologie et du délai minimal](./docs/media/image-5.png)
 
 La préconisation qui semble avoir le meilleur compromis global est donc de mettre un délai minimale entre deux locations successives de 120 minutes.
 
