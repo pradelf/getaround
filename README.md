@@ -18,24 +18,7 @@ ___
 
 ![snap](https://fr.getaround.com/packs/images/app/assets/images/shared/getaround-logo.245e368962541c3c.svg)
 
-- [getaround](#getaround)
-  - [Description et contexte du projet](#description-et-contexte-du-projet)
-    - [Contexte](#contexte)
-    - [Projet 🚧](#projet-🚧)
-    - [Objectifs 🎯](#objectifs-🎯)
-      - [Tableau de bord web](#tableau-de-bord-web)
-      - [Machine Learning – endpoint `/predict`](#machine-learning-–-endpoint-predict)
-      - [Page de documentation](#page-de-documentation)
-      - [Mise en production en ligne](#mise-en-production-en-ligne)
-    - [Aides 🦮](#aides-🦮)
-      - [Partage du code](#partage-du-code)
-    - [Livrables 📬](#livrables-📬)
-    - [Données](#données)
-  - [Organisation du projet](#organisation-du-projet)
-    - [Structure du projet](#structure-du-projet)
-    - [Données](#données-1)
-    - [Point d'entrée](#point-dentrée)
-
+[TOC]
 ___
 Projet d'évaluation des impacts de retard sur les locations de getaround.
 
@@ -424,12 +407,15 @@ La préconisation qui semble avoir le meilleur compromis global est donc de mett
 
 Au passage des réponses aux questions suivantes sont apportés :
 
-- Quelle part des revenus des propriétaires serait potentiellement affectée par cette fonctionnalité ?
-
-- Combien de locations seraient impactées en fonction du seuil et du périmètre choisis ?
-
-- À quelle fréquence les conducteurs sont-ils en retard pour le check-in suivant ?
-
 - Quel est l’impact pour le conducteur suivant ?
 
+L'impact est de devoir décaler sa réservation mais en étant plus sûr de ne pas avoir d'annulation.
+
 - Combien de situations problématiques seraient résolues selon le seuil et le périmètre retenus ?
+
+Le graphe suivant donne la probabilité de conflits restant en fonction du délai choisi quelque soit la technologie de checkin.
+![Risque de conflit par rapport au délai minimum imposé](./docs/media/image-2.png)
+
+Suivant le périmètre, on obtient l'évolution  suivant de probabilité de situations problématiques.
+
+![alt text](image.png)
