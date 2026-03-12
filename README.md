@@ -4,9 +4,9 @@
 
 Ce projet est à réaliser pour valider partiellement la certification Data Science - Fullstack : Certification RNCP35288 CDSD avec le bloc 5.
 
-Standardiser la construction et l'environnement informatique d'un algorithme d'apprentissage automatique grâce des outils de production comme MLflow et Docker afin de faciliter la mise en production de projets d'intelligence artificielle sur tous types de plateformes
-Créer une interface de programmation applicative grâce à des outil comme AWS sagemaker afin de donner un accès à échelle aux prédictions des algorithmes d'apprentissage automatique à l'ensemble des équipes métiers concernées
-Déployer une application web intégrant des algorithmes de statistiques prédictives (Machine Learning et Deep Learning) grâce à des outils comme Flask, Heroku ou AWS sagemaker pour les rendre utilisables par l'ensemble des équipes métiers afin d'automatiser leurs processus de décision
+- Standardiser la construction et l'environnement informatique d'un algorithme d'apprentissage automatique grâce des outils de production comme MLflow et Docker afin de faciliter la mise en production de projets d'intelligence artificielle sur tous types de plateformes
+- Créer une interface de programmation applicative grâce à des outil comme AWS sagemaker afin de donner un accès à échelle aux prédictions des algorithmes d'apprentissage automatique à l'ensemble des équipes métiers concernées
+- Déployer une application web intégrant des algorithmes de statistiques prédictives (Machine Learning et Deep Learning) grâce à des outils comme Flask, Heroku ou AWS sagemaker pour les rendre utilisables par l'ensemble des équipes métiers afin d'automatiser leurs processus de décision.
 
 Ce projet est également déposé sur github :  [https://github.com/pradelf/getaround](https://github.com/pradelf/getaround)
 ___
